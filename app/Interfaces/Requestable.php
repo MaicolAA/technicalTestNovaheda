@@ -1,6 +1,8 @@
 <?php
 
+namespace App\Interfaces;
+
 interface Requestable
 {
-    public function rules();
+    public function rules(): array;
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Validation\ValidationException;
 
-class MainController extends BaseController
+class MainController extends BaseController 
 {
     use AuthorizesRequests;
     use DispatchesJobs;

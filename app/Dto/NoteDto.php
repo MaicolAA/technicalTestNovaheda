@@ -1,0 +1,95 @@
+<?php
+
+namespace App\DTO;
+
+use App\Models\Note;
+
+class NoteDto extends Dto
+{
+    public function __construct(
+        private string $note,
+        private string $noteableType,
+        private int $noteableId,
+    ) {}
+
+    public function getNote(): string
+    {
+        return $this->note;
+    }
+
+    public function setNote(string $note): void
+    {
+        $this->note = $note;
+    }
+
+    public function getNoteableType(): string
+    {
+        return $this->noteableType;
+    }
+
+    public function setNotableType(string $noteableType): void
+    {
+        $this->noteableType = $noteableType;
+    }
+
+    
+    public function getNoteableId(): int
+    {
+        return $this->noteableId;
+    }
+    
+    public function setNotableId(int $noteableId): void
+    {
+        $this->noteableId = $noteableId;
+    }
+
+    public static function fromRequest(array $data): self
+    {
+        return new self(
+            note: $data['note'],
+            noteableType: $data['noteable_type'],
+            noteableId: $data['noteable_id'],
+        );
+    }
+
+    public function toCreate(): array
+    {
+        return [
+            'note' => $this->getNote(),
+            'noteable_type' => $this->getNoteableType(),
+            'noteable_id' => $this->getNoteableId(),
+        ];
+    }
+
+    
+    public function toUpdate(): array
+    {
+        return [
+            'note' => $this->getNote(),
+            'noteable_type' => $this->getNoteableType(),
+            'noteable_id' => $this->getNoteableId(),
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id'=> $this->getId(),
+            'note' => $this->getNote(),
+            'noteable_type' => $this->getNoteableType(),
+            'noteable_id' => $this->getNoteableId(),
+        ];
+    }
+
+    public static function fromModel(Note $note): self
+    {
+        $self =  new self(
+            note: $note->note,
+            noteableType: $note->noteable_type,
+            noteableId: $note->noteable_id,
+        );
+
+        $self->setId($note->id);
+        return $self;
+    }
+}

@@ -5,10 +5,11 @@ namespace App\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Interfaces\Requestable;
 
-class MainRequest extends FormRequest
+abstract class MainRequest extends FormRequest implements Requestable
 {
-    protected string $message = ''; 
+    protected string $message = '';
 
     public function setMessage(string $message)
     {
@@ -22,7 +23,9 @@ class MainRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'status' => 422,
             'message' => $this->message,
-             'error' => $errors->values()->all()
+            'error' => $errors->values()->all()
         ], 422));
     }
+
+    abstract public function rules(): array;
 }
