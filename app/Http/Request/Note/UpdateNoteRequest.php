@@ -12,22 +12,23 @@ class UpdateNoteRequest extends MainRequest
         $this->setMessage(__('messages.note_update_error'));
     }
 
+
     public function rules(): array
     {
         return [
-            'note' => 'string',
-            'noteable_type' => 'string|in:' . implode(',', NoteableType::values()),
-            'noteable_id' => 'integer',
+            'note' => 'required|string',
+            'noteable_type' => 'required|string|in:' . implode(',', NoteableType::values()),
+            'noteable_id' => 'required|integer',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'note.string' => __('messages.note_content_string'),
-            'noteable_type.string' => __('messages.noteable_type_string'),
+            'note.required' => __('messages.note_content_required'),
+            'noteable_type.required' => __('messages.noteable_type_required'),
             'noteable_type.in' => __('messages.noteable_type_invalid'),
-            'noteable_id.integer' => __('messages.noteable_id_integer'),
+            'noteable_id.required' => __('messages.noteable_id_required'),
         ];
     }
 }

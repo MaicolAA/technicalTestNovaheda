@@ -16,18 +16,6 @@ class NoteController extends MainController
         private NoteService $noteService
     ) {}
 
-    public function index(): JsonResponse
-    {
-        try {
-            $notes = $this->noteService->getAllNotes();
-            return $this->ok(
-                $notes,
-                __('messages.ok')
-            );
-        } catch (Exception $e) {
-            return $this->error($e->getMessage());
-        }
-    }
 
     public function store(CreateNoteRequest $request): JsonResponse
     {
@@ -46,16 +34,36 @@ class NoteController extends MainController
     public function show(int $id): JsonResponse
     {
         try {
-            $note = $this->noteService->getNote($id);
+            $withNoteable = request()->has('include') && str_contains(request('include'), 'noteable');
+            $note = $this->noteService->getNote($id, $withNoteable);
+
             if (!$note) {
                 throw new Exception(__('messages.note_not_found'), 404);
             }
+
             return $this->ok(
                 $note->toArray(),
                 __('messages.ok')
             );
         } catch (Exception $e) {
             return $this->error($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function index(): JsonResponse
+    {
+        try {
+            $noteableType = request('noteable_type');
+            $noteableId = request('noteable_id');
+            
+            $notes = $this->noteService->getAllNotes($noteableType, $noteableId);
+            
+            return $this->ok(
+                $notes,
+                __('messages.ok')
+            );
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
         }
     }
 
@@ -89,29 +97,29 @@ class NoteController extends MainController
     }
 
 
-    public function getNotesForCompany(int $companyId): JsonResponse
-    {
-        try {
-            $notes = $this->noteService->getNotesForCompany($companyId);
-            return $this->ok(
-                $notes,
-                __('messages.ok')
-            );
-        } catch (Exception $e) {
-            return $this->error($e->getMessage(), $e->getCode());
-        }
-    }
+    // public function getNotesForCompany(int $companyId): JsonResponse
+    // {
+    //     try {
+    //         $notes = $this->noteService->getNotesForCompany($companyId);
+    //         return $this->ok(
+    //             $notes,
+    //             __('messages.ok')
+    //         );
+    //     } catch (Exception $e) {
+    //         return $this->error($e->getMessage(), $e->getCode());
+    //     }
+    // }
 
-    public function getNotesForContact(int $contactId): JsonResponse
-    {
-        try {
-            $notes = $this->noteService->getNotesForContact($contactId);
-            return $this->ok(
-                $notes,
-                __('messages.ok')
-            );
-        } catch (Exception $e) {
-            return $this->error($e->getMessage(), $e->getCode());
-        }
-    }
+    // public function getNotesForContact(int $contactId): JsonResponse
+    // {
+    //     try {
+    //         $notes = $this->noteService->getNotesForContact($contactId);
+    //         return $this->ok(
+    //             $notes,
+    //             __('messages.ok')
+    //         );
+    //     } catch (Exception $e) {
+    //         return $this->error($e->getMessage(), $e->getCode());
+    //     }
+    // }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Collection;
-
 use App\DTO\ContactDto;
 use App\Repositories\ContactRepository;
 use App\Repositories\CompanyRepository;

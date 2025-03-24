@@ -2,14 +2,17 @@
 
 namespace App\Repositories;
 
-use Exception;
+use App\Enums\NoteableType;
 
 use App\Models\Note;
-use App\Models\Company;
-use App\Models\Contact;
+use Illuminate\Database\Eloquent\Collection;
 
 class NoteRepository
 {
+    public function newQuery()
+    {
+        return Note::query();
+    }
     public function all()
     {
         return Note::all();
@@ -36,21 +39,16 @@ class NoteRepository
         return $note->delete();
     }
 
-    public function getNotesForCompany(int $companyId)
-    {
-        $company = Company::find($companyId);
-        if (!$company) {
-            throw new Exception(__('messages.company_not_found'), 404);
-        }
-        return $company->notes;
-    }
 
-    public function getNotesForContact(int $contactId)
+    public function filterByNoteableType(?string $noteableType): Collection
     {
-        $contact = Contact::find($contactId);
-        if (!$contact) {
-            throw new Exception(__('messages.contact_not_found'), 404);
+        $query = $this->newQuery();
+        
+        if ($noteableType) {
+            $modelClass = NoteableType::getModelClass($noteableType);
+            $query->where('noteable_type', $modelClass);
         }
-        return $contact->notes;
+        
+        return $query->get();
     }
 }
