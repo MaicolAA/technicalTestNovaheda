@@ -47,9 +47,9 @@ class ProjectController extends MainController
             $request->validate($request->rules());
 
             $projectDto = ProjectDto::fromRequest($request->validated());
-            $company = $this->projectService->createProject($projectDto);
+            $project = $this->projectService->createProject($projectDto);
             return $this->created(
-                $company->toArray(),
+                $project->toArray(),
                 __('messages.project_created')
             );
         } catch (Exception $e) {
@@ -64,12 +64,12 @@ class ProjectController extends MainController
     public function show(int $id): JsonResponse
     {
         try {
-            $company = $this->projectService->getProject($id);
-            if (!$company) {
+            $project = $this->projectService->getProject($id);
+            if (!$project) {
                 throw new Exception(__('messages.project_not_found'), 404);
             }
             return $this->ok(
-                $company->toArray(),
+                $project->toArray(),
                 __('messages.ok')
             );
         } catch (Exception $e) {
