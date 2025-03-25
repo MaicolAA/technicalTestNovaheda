@@ -8,7 +8,7 @@ use Exception;
 use App\Http\Request\Contact\CreateContactRequest;
 use App\Http\Request\Contact\UpdateContactRequest;
 use App\Services\ContactService;
-use App\DTO\ContactDto;
+use App\Dto\ContactDto;
 
 class ContactController extends MainController
 {

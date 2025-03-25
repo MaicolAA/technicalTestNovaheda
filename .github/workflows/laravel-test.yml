@@ -14,12 +14,16 @@ jobs:
       postgres:
         image: postgres:15-alpine
         env:
-          POSTGRES_DB: novaheda
+          POSTGRES_DB: novaheda_test
           POSTGRES_USER: novaheda_user
           POSTGRES_PASSWORD: gatostem123
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd "pg_isready -U novaheda_user -d novaheda_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
 
     steps:
       - uses: actions/checkout@v3
@@ -31,21 +35,54 @@ jobs:
           extensions: pgsql, pcntl, zip
           coverage: none
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          echo "Waiting for PostgreSQL to be available..."
+          for i in {1..30}; do
+            if PGPASSWORD=gatostem123 psql -h 127.0.0.1 -U novaheda_user -d novaheda_test -c "SELECT 1" > /dev/null 2>&1; then
+              echo "PostgreSQL is ready!"
+              exit 0
+            fi
+            echo "PostgreSQL is not ready yet. Attempt $i..."
+            sleep 2
+          done
+          echo "PostgreSQL failed to start"
+          exit 1
+
+      - name: Debug PostgreSQL
+        run: |
+          docker ps
+          nc -zv 127.0.0.1 5432
+
       - name: Install dependencies
         run: |
           composer install --no-interaction --prefer-dist
-          cp .env.example .env
-          php artisan key:generate
+          cp .env.example .env.testing
+          php artisan key:generate --env=testing --force
+
+      - name: Configure environment
+        run: |
+          echo "APP_ENV=testing" >> .env.testing
+          echo "DB_CONNECTION=pgsql" >> .env.testing
+          echo "DB_HOST=127.0.0.1" >> .env.testing
+          echo "DB_PORT=5432" >> .env.testing
+          echo "DB_DATABASE=novaheda_test" >> .env.testing
+          echo "DB_USERNAME=novaheda_user" >> .env.testing
+          echo "DB_PASSWORD=gatostem123" >> .env.testing
+          echo "CACHE_DRIVER=array" >> .env.testing
+          echo "SESSION_DRIVER=array" >> .env.testing
+          echo "QUEUE_DRIVER=sync" >> .env.testing
+          echo "JWT_SECRET=$(php artisan jwt:secret --show)" >> .env.testing
 
       - name: Prepare environment
         run: |
-          php artisan config:clear
-          php artisan route:clear
-          php artisan view:clear
-          php artisan cache:clear
+          php artisan config:clear --env=testing
+          php artisan route:clear --env=testing
+          php artisan view:clear --env=testing
 
       - name: Run migrations and seed
-        run: php artisan migrate:fresh --seed
+        run: |
+          php artisan migrate:fresh --env=testing --force
 
       - name: Execute tests
-        run: php artisan test
+        run: php artisan test --env=testing

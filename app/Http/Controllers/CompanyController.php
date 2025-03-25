@@ -10,7 +10,7 @@ use App\Http\Request\Company\UpdateCompanyRequest;
 
 use App\Services\CompanyService;
 
-use App\DTO\CompanyDto;
+use App\Dto\CompanyDto;
 
 
 

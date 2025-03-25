@@ -9,7 +9,7 @@ use App\Http\Request\Auth\RequestLogin;
 use App\Http\Request\Auth\RequestRegister;
 use App\Services\AuthService;
 use App\Services\UserService;
-use App\DTO\UserDto;
+use App\Dto\UserDto;
 
 class AuthController extends MainController
 {

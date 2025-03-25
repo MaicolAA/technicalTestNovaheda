@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Collection;
 use Exception;
 
-use App\DTO\CompanyDto;
+use App\Dto\CompanyDto;
 use App\Repositories\CompanyRepository;
 
 class CompanyService

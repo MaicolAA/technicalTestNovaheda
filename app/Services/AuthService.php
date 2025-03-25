@@ -9,7 +9,7 @@ use Exception;
 
 
 use App\Services\UserService;
-use App\DTO\UserDto;
+use App\Dto\UserDto;
 
 class AuthService
 {

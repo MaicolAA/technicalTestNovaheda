@@ -1,12 +1,12 @@
 <?php
 
-namespace App\DTO;
+namespace App\Dto;
 
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 
-class UserDTO extends Dto
+class UserDto extends Dto
 {
     private ?string $name;
     private string $email;

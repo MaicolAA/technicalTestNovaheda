@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+use Illuminate\Support\Facades\App;
+
 abstract class TestCase extends BaseTestCase
 {
     use DatabaseTransactions;
@@ -20,11 +22,11 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        App::setLocale('es');
 
         $this->configureInMemoryDatabase();
         $this->runMigrationsAndSeeders();
 
-        // Usar firstOrCreate para evitar duplicados
         $this->authenticatedUser = User::firstOrCreate(
             ['email' => 'test@example.com'],
             [

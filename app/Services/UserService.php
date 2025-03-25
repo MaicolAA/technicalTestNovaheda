@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Models\User;
-use App\DTO\UserDto;
+use App\Dto\UserDto;
 
 
 class UserService

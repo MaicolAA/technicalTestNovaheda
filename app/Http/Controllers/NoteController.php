@@ -8,7 +8,7 @@ use Exception;
 use App\Http\Request\Note\CreateNoteRequest;
 use App\Http\Request\Note\UpdateNoteRequest;
 use App\Services\NoteService;
-use App\DTO\NoteDto;
+use App\Dto\NoteDto;
 
 class NoteController extends MainController
 {

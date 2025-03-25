@@ -6,7 +6,7 @@ use Exception;
 
 use App\Repositories\NoteRepository;
 use App\Enums\NoteableType;
-use App\DTO\NoteDto;
+use App\Dto\NoteDto;
 use App\Models\Company;
 use App\Models\Note;
 

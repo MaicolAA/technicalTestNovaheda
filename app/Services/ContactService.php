@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\ContactDto;
+use App\Dto\ContactDto;
 use App\Repositories\ContactRepository;
 use App\Repositories\CompanyRepository;
 use Exception;
