@@ -66,4 +66,11 @@ return [
     'note_create_error' => 'Error al crear la nota.',
     'note_update_error'=> 'Error actualizando la nota.',
 
+    'project_not_found' => "Proyecto no encontrado",
+    'project_created' => "Proyecto creado correctamente",
+    'project_updated' => "Proyecto actualizado correctamente",
+    'project_deleted' => "Proyecto eliminado correctamente",
+    'project_create_error' => "Error al crear el proyecto",
+    'project_update_error' => "Error al actualizar el proyecto",
+
 ];

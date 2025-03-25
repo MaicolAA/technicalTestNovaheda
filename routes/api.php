@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ProjectController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -18,4 +19,5 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('contacts', ContactController::class);
 
     Route::apiResource('notes', NoteController::class);
+    Route::apiResource('projects', ProjectController::class);
 });

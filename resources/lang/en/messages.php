@@ -64,4 +64,11 @@ return [
     'note_deleted' => 'Note deleted successfully.',   
     'note_create_error' => 'Error creating note',
     'note_update_error'=> 'Error updating note',
+
+    'project_not_found' => 'Project not found',
+    'project_created' => 'Project created successfully',
+    'project_updated' => 'Project updated successfully',
+    'project_deleted' => 'Project deleted successfully',
+    'project_create_error' => 'Error creating project',
+    'project_update_error' => 'Error updating project',
 ];
