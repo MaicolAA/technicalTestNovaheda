@@ -69,16 +69,11 @@ class NoteService
         return $this->noteRepository->delete($note);
     }
 
-    public function getNote(int $id, bool $withNoteable = false): ?NoteDto
+    public function getNote(int $id): ?NoteDto
     {
         $query = $this->noteRepository->newQuery();
-
-        if ($withNoteable) {
-            $query->with('noteable');
-        }
-
         $note = $query->find($id);
-
+        
         if (!$note) {
             return null;
         }

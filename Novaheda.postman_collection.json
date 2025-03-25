@@ -1,0 +1,767 @@
+{
+	"info": {
+		"_postman_id": "6eb19b41-a7c3-47a3-b515-ec5a6a90b371",
+		"name": "Novaheda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29370226",
+		"_collection_link": "https://jdm222.postman.co/workspace/JDM~d81a1810-d371-4198-a7be-fe8f7a352102/collection/29370226-6eb19b41-a7c3-47a3-b515-ec5a6a90b371?action=share&source=collection_link&creator=29370226"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Maicol Arroyave\",\r\n    \"email\": \"maicolaroyave101q@gmail.com\",\r\n    \"password\": \"gatostem123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/register",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"\r",
+									"if (response.body && response.body.token) {\r",
+									"    pm.globals.set(\"NOVAHEDA_TOKEN\", response.body.token);\r",
+									"    console.log(\"Token guardado correctamente:\", response.body.token);\r",
+									"} else {\r",
+									"    console.log(\"No se encontró el token en la respuesta.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"maicolaroyave101q@gmail.com\",\r\n    \"password\": \"gatostem123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/login",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/me",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/logout",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Companies",
+			"item": [
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"company 04\",\r\n    \"description\": \"desc\",\r\n    \"email\": \"maicolaroyave11@gmail.com\",\r\n    \"address\": \"1010 portland\",\r\n    \"website\": \"https://novadeha.com/\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/companies",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/companies",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/companies/1",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"company 01 editada3\",\r\n    \"description\": \"desc editada3\",\r\n    \"email\": \"maicolaroyave10@gmail.com\",\r\n    \"address\": \"1010 portland3\",\r\n    \"website\": \"https://novadeha.com3/\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/companies/4",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"companies",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/companies/3",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"companies",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotesFromCompany",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes?noteable_type=company",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "noteable_type",
+									"value": "company"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotesFromCompanyEspecific",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes?noteable_type=company&noteable_id=1",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "noteable_type",
+									"value": "company"
+								},
+								{
+									"key": "noteable_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Maicol Arroyave\",\r\n    \"email\": \"maicolaroyave10@gmail.com\",\r\n    \"phone\": \"3128797122\",\r\n    \"address\": \"1000 south lane 111\",\r\n    \"company_id\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/contacts/4",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"contacts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/contacts/",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"contacts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/contacts/9",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"contacts",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/contacts/9",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"contacts",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Maicol Arroyave\",\r\n    \"email\": \"maicolaroyave121@gmail.com\",\r\n    \"phone\": \"3128797122\",\r\n    \"address\": \"1000 south lane 12\",\r\n    \"company_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/contacts",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotesFromContact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes?noteable_type=contact",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "noteable_type",
+									"value": "contact"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotesFromContactEspecific",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes?noteable_type=contact&noteable_id=2",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "noteable_type",
+									"value": "contact"
+								},
+								{
+									"key": "noteable_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\": \"note testrttt\",\r\n    \"noteable_type\": \"company\",\r\n    \"noteable_id\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes/1",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes/",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes/1",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes/1",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{NOVAHEDA_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\": \"note testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote testnote test\",\r\n    \"noteable_type\": \"contact\",\r\n    \"noteable_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{NOVAHEDA}}api/notes",
+							"host": [
+								"{{NOVAHEDA}}api"
+							],
+							"path": [
+								"notes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

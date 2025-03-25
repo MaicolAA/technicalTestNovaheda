@@ -18,7 +18,4 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('contacts', ContactController::class);
 
     Route::apiResource('notes', NoteController::class);
-
-    Route::get('/companies/{company}/notes', [NoteController::class, 'getNotesForCompany']);
-    Route::get('/contacts/{contact}/notes', [NoteController::class, 'getNotesForContact']);
 });

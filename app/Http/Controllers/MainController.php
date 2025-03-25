@@ -17,6 +17,7 @@ class MainController extends BaseController
 
 
     /**
+     * Metodo estandar para retornar un mensaje
      * @param string $message
      * @return JsonResponse
      */
@@ -34,6 +35,7 @@ class MainController extends BaseController
     }
 
     /**
+     * Metodo estandar para retornar un 200 y un body
      * @param array<mixed> $body
      * @param string $message
      * @return JsonResponse
@@ -54,6 +56,7 @@ class MainController extends BaseController
     }
 
     /**
+     * Metodo estandar para responde a la creación de una entidad con codigo 201 y cuerpo
      * @param array<mixed> $body
      * @param string $message
      * @return JsonResponse
@@ -74,6 +77,7 @@ class MainController extends BaseController
     }
 
     /**
+     * Metodo estandar para responder errores (400, 404, 422)
      * @param string|array<mixed> $message
      * @param int $status
      * @return JsonResponse
@@ -89,6 +93,7 @@ class MainController extends BaseController
     }
 
     /**
+     * Metodos estandar para las los errores de las validaciones de entrada de los endpoints
      * @param string $message
      * @param ValidationException $exception
      * @return JsonResponse

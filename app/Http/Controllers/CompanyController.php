@@ -16,10 +16,18 @@ use App\Dto\CompanyDto;
 
 class CompanyController extends MainController
 {
+    /**
+     * @param \App\Services\CompanyService $companyService
+     */
     public function __construct(
         private CompanyService $companyService
     ) {}
 
+    
+    /**
+     * Lista las compañias
+     * @return JsonResponse
+     */
     public function index(): JsonResponse
     {
         try {
@@ -33,6 +41,11 @@ class CompanyController extends MainController
         }
     }
 
+    /**
+     * Crea una nueva compañia
+     * @param \App\Http\Request\Company\CreateCompanyRequest $request
+     * @return JsonResponse
+     */
     public function store(CreateCompanyRequest $request): JsonResponse
     {
         try {
@@ -49,6 +62,11 @@ class CompanyController extends MainController
         }
     }
 
+    /**
+     * Presenta el detalle de una compañia
+     * @param int $id
+     * @return JsonResponse
+     */
     public function show(int $id): JsonResponse
     {
         try {
@@ -65,6 +83,12 @@ class CompanyController extends MainController
         }
     }
 
+    /**
+     * Actualiza una compañia
+     * @param \App\Http\Request\Company\UpdateCompanyRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
     public function update(UpdateCompanyRequest $request, int $id): JsonResponse
     {
         try {
@@ -84,6 +108,11 @@ class CompanyController extends MainController
         }
     }
 
+    /**
+     * Elimina una compañia
+     * @param int $id
+     * @return JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         try {

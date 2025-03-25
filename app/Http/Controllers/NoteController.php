@@ -12,11 +12,19 @@ use App\Dto\NoteDto;
 
 class NoteController extends MainController
 {
+    /**
+     * @param \App\Services\NoteService $noteService
+     */
     public function __construct(
         private NoteService $noteService
     ) {}
 
 
+    /**
+     * Crea una nota
+     * @param \App\Http\Request\Note\CreateNoteRequest $request
+     * @return JsonResponse
+     */
     public function store(CreateNoteRequest $request): JsonResponse
     {
         try {
@@ -31,11 +39,15 @@ class NoteController extends MainController
         }
     }
 
+    /**
+     * Presenta el detalle de una nota
+     * @param int $id
+     * @return JsonResponse
+     */
     public function show(int $id): JsonResponse
     {
         try {
-            $withNoteable = request()->has('include') && str_contains(request('include'), 'noteable');
-            $note = $this->noteService->getNote($id, $withNoteable);
+            $note = $this->noteService->getNote($id);
 
             if (!$note) {
                 throw new Exception(__('messages.note_not_found'), 404);
@@ -50,6 +62,10 @@ class NoteController extends MainController
         }
     }
 
+    /**
+     * Lista las notas, todas, por tipo y por tipo y entidad noteable
+     * @return JsonResponse
+     */
     public function index(): JsonResponse
     {
         try {
@@ -67,6 +83,12 @@ class NoteController extends MainController
         }
     }
 
+    /**
+     * Actualiza una nota
+     * @param \App\Http\Request\Note\UpdateNoteRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
     public function update(UpdateNoteRequest $request, int $id): JsonResponse
     {
         try {
@@ -83,6 +105,11 @@ class NoteController extends MainController
         }
     }
 
+    /**
+     * Elimina una nota
+     * @param int $id
+     * @return JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         try {
@@ -96,30 +123,4 @@ class NoteController extends MainController
         }
     }
 
-
-    // public function getNotesForCompany(int $companyId): JsonResponse
-    // {
-    //     try {
-    //         $notes = $this->noteService->getNotesForCompany($companyId);
-    //         return $this->ok(
-    //             $notes,
-    //             __('messages.ok')
-    //         );
-    //     } catch (Exception $e) {
-    //         return $this->error($e->getMessage(), $e->getCode());
-    //     }
-    // }
-
-    // public function getNotesForContact(int $contactId): JsonResponse
-    // {
-    //     try {
-    //         $notes = $this->noteService->getNotesForContact($contactId);
-    //         return $this->ok(
-    //             $notes,
-    //             __('messages.ok')
-    //         );
-    //     } catch (Exception $e) {
-    //         return $this->error($e->getMessage(), $e->getCode());
-    //     }
-    // }
 }

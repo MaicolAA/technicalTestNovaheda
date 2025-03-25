@@ -58,6 +58,8 @@ php artisan serve
 
 ## Endpoints de la API
 
+Se puede encontrar en la raiz de la aplicación el archivo `Novaheda.postman_collection.json` con todos los endpoints de la API.
+
 ### 🔑 Autenticación
 
 | Método | Endpoint  | Descripción |
@@ -97,14 +99,13 @@ php artisan serve
 | **GET**  | `/api/notes/{id}` | Obtener una nota |
 | **PUT**  | `/api/notes/{id}` | Actualizar una nota |
 | **DELETE** | `/api/notes/{id}` | Eliminar una nota |
-| **GET**  | `/companies/{id}/notes` | Obtener notas de una empresa |
-| **GET**  | `/contacts/{id}/notes` | Obtener notas de un contacto |
+| **GET**  | `/api/notes?noteable_type=company&noteable_id=1` | Obtener notas de una compañia |
+| **GET**  | `/api/notes?noteable_type=contact&noteable_id=1` | Obtener notas de un contacto |
 
 📌 **Parámetros adicionales:**
 
 - `?noteable_type=contact|company`
 - `?noteable_id=1`
-- `?include=noteable`
 
 ---
 
