@@ -44,8 +44,8 @@ DB_DATABASE=novaheda
 DB_USERNAME=root
 DB_PASSWORD=
 
-# Ejecutar migraciones con datos de prueba
-php artisan migrate --seed
+# Ejecutar migraciones
+php artisan migrate 
 
 # Generar clave JWT
 php artisan jwt:secret
